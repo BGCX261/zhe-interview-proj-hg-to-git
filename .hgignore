@@ -1,0 +1,11 @@
+# 使用通配符語法.
+syntax: glob
+#*.elc
+#*.pyc
+#*~
+pw.txt
+
+# 切換到正則表示式.
+syntax: regexp
+#^\.pc/
+
