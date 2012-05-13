@@ -3,6 +3,9 @@ syntax: glob
 #*.elc
 #*.pyc
 #*~
+reference
+phpMyAdmin
+phpinfo.php
 SimpleCodeignigterExample/system
 SimpleCodeignigterExample/user_guide
 pw.txt
