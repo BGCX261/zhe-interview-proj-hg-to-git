@@ -3,6 +3,8 @@ syntax: glob
 #*.elc
 #*.pyc
 #*~
+SimpleCodeignigterExample/system
+SimpleCodeignigterExample/user_guide
 pw.txt
 
 # 切換到正則表示式.
