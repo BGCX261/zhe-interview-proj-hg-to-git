@@ -21,11 +21,11 @@
 <body>
 <h1>Project 1</h1>
 <?php 
-	foreach ($entries as $entrie) {
-		# echo $entrie->id;
-		$select_body = "<p>" . $entrie->items . "<select onmouseout='toggleSelectBox(this)' onmouseover='toggleSelectBox(this)'>";
+	foreach ($entries as $entry) {
+		# echo $entry->id;
+		$select_body = "<p>" . $entry->items . "<select onmouseout='toggleSelectBox(this)' onmouseover='toggleSelectBox(this)'>";
 		
-			foreach (explode("|", $entrie->content) as $cont) {
+			foreach (explode("|", $entry->content) as $cont) {
 				list($msg, $value) = explode(";", $cont);
 				$select_body .= "<option value='" . $value . "'>";
 				$select_body .= $msg;

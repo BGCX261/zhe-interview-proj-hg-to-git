@@ -10,10 +10,10 @@
 <h1>Project 1</h1>
 <?php 
 	$select_body = "<table border=1>";
-	foreach ($entries as $entrie) {
-		# echo $entrie->id;
-		$select_body .= "<tr><td>" . $entrie->items . "</td><td>";
-			foreach (explode("|", $entrie->content) as $cont) {
+	foreach ($entries as $entry) {
+		# echo $entry->id;
+		$select_body .= "<tr><td>" . $entry->items . "</td><td>";
+			foreach (explode("|", $entry->content) as $cont) {
 				$select_body .= $cont . "<br/>";
 				#list($msg, $value) = explode(";", $cont);
 				#$select_body .= "<option value='" . $value . "'>";
