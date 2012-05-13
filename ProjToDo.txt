@@ -13,6 +13,7 @@ ____[ ] Controller: 更新 Model: 修改單筆 entry
 ____[ ] Controller: 更新 Model: 增加 entry
 __[-] View: managemenu_view.php
 ____[v] View: 顯示資料庫目前選單內容
+____[ ] View: 更新或增加 entry 介面
 
 專案 2: DigiSign (動態電子看版)
 [ ]可撥放影片
