@@ -1,0 +1,22 @@
+專案 1: SimpleCodeignigterExample (可客製下拉選單)
+[v]PHP + Codeignigter framework
+[v]顯示來自資料庫的 Select Box 選單
+__[v] Controller: dropdownmenu.php
+__[v] Model: dropdownmenu_model.php
+__[v] View: dropdownmenu_view.php
+[v]滑鼠移到 Select Box 自動展開
+__[v] View: JS in dropdownmenu_view.php 
+[-]管理顯示選單數量內容的後台
+__[-] Controller: managemenu.php
+____[v] Controller: 取得 Model 資料給view顯示
+____[ ] Controller: 更新 Model: 修改單筆 entry
+____[ ] Controller: 更新 Model: 增加 entry
+__[-] View: managemenu_view.php
+____[v] View: 顯示資料庫目前選單內容
+
+專案 2: DigiSign (動態電子看版)
+[ ]可撥放影片
+[ ]可撥放圖片
+[ ]顯示日期/時間
+[ ]抓取RSS輪撥
+[ ]顯示氣象
