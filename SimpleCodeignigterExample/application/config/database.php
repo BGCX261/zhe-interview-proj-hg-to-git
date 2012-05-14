@@ -49,12 +49,12 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'at';
-$db['default']['password'] = '5cMr7cHtrA5mL';
-$db['default']['database'] = 'at';
+$db['default']['username'] = '722347_zhe';
+$db['default']['password'] = 'hxjtz8mp';
+$db['default']['database'] = 'zhep_zxq_zhe';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = TRUE;
+$db['default']['pconnect'] = FALSE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
