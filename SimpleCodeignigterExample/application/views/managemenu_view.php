@@ -9,9 +9,9 @@
 			$(divName+'_chgBtn').disabled='disabled';
 			$(divName+'_delBtn').disabled='disabled';
 			$(divName+'_namediv').style.display
-				= $(divName+'_contentdiv').style.display = 'none';
+				= $(divName+'_itemsdiv').style.display = 'none';
 			$(divName+'_nameinput').type = 'input';
-			$(divName+'_contentinput').style.display = 'inline';
+			$(divName+'_itemsinput').style.display = 'inline';
 			$(divName+'_submitChange').style.display = 'block';
 		}
 		
@@ -26,20 +26,20 @@
 				method: 'post',
 				parameters: {
 					'id': $(divName+'_id').value,
-					'items': $(divName+'_nameinput').value,
-					'content':$(divName+'_contentinput').value.replace(/\n/g,"|")
+					'menu_name': $(divName+'_nameinput').value,
+					'menu_item':$(divName+'_itemsinput').value.replace(/\n/g,"|")
 				}, 
 				onSuccess: function(transport) {
 					if(transport.responseText == '1') {
 						$(divName+'_namediv').innerText = $(divName+'_nameinput').value;
-						$(divName+'_contentdiv').innerHTML = $(divName+'_contentinput').value.replace(/\n/g,"<br/>");
+						$(divName+'_itemsdiv').innerHTML = $(divName+'_itemsinput').value.replace(/\n/g,"<br/>");
 						
 						$(divName+'_chgBtn').disabled='';
 						$(divName+'_delBtn').disabled='';
 						$(divName+'_namediv').style.display
-							= $(divName+'_contentdiv').style.display = 'inline-block';
+							= $(divName+'_itemsdiv').style.display = 'inline-block';
 						$(divName+'_nameinput').type = 'hidden';
-						$(divName+'_contentinput').style.display = 'none';
+						$(divName+'_itemsinput').style.display = 'none';
 						$(divName+'_submitChange').style.display = 'none';
 					} else {
 						alert('Submit Fail!!');
@@ -53,14 +53,14 @@
 		
 		function onCancel(divName){
 			$(divName+'_nameinput').value = $(divName+'_namediv').innerText;
-			$(divName+'_contentinput').value = $(divName+'_contentdiv').innerText;
+			$(divName+'_itemsinput').value = $(divName+'_itemsdiv').innerText;
 		
 			$(divName+'_chgBtn').disabled='';
 			$(divName+'_delBtn').disabled='';
 			$(divName+'_namediv').style.display
-				= $(divName+'_contentdiv').style.display = 'inline-block';
+				= $(divName+'_itemsdiv').style.display = 'inline-block';
 			$(divName+'_nameinput').type = 'hidden';
-			$(divName+'_contentinput').style.display = 'none';
+			$(divName+'_itemsinput').style.display = 'none';
 			$(divName+'_submitChange').style.display = 'none';
 		}
 		
@@ -99,8 +99,8 @@
 			new Ajax.Request('/SimpleCodeignigterExample/managemenu/insert',{
 				method: 'post',
 				parameters: {
-					'items': $(divName+'_nameinput').value,
-					'content': $(divName+'_contentinput').value.replace(/\n/g,"|")
+					'menu_name': $(divName+'_nameinput').value,
+					'menu_item': $(divName+'_itemsinput').value.replace(/\n/g,"|")
 				}, 
 				onSuccess: function(transport) {
 					if(transport.responseText == '1') {
@@ -135,13 +135,13 @@
 <?php 
 	foreach ($entries as $entry) {
 		$div_name = "div_" . $entry->id;
-		$ary_entries = explode("|", $entry->content);
+		$ary_entries = explode("|", $entry->menu_item);
 ?>
-<div id='<?=$div_name;?>'><input id='<?=$div_name;?>_id' type='hidden' value='<?=$entry->id;?>'/><strong>Menu name: <div style="display:inline" id='<?=$div_name;?>_namediv'><?=$entry->items;?></div><input id='<?=$div_name;?>_nameinput' type='hidden' value='<?=$entry->items;?>'/>
+<div id='<?=$div_name;?>'><input id='<?=$div_name;?>_id' type='hidden' value='<?=$entry->id;?>'/><strong>Menu name: <div style="display:inline" id='<?=$div_name;?>_namediv'><?=$entry->menu_name;?></div><input id='<?=$div_name;?>_nameinput' type='hidden' value='<?=$entry->menu_name;?>'/>
 </strong><br/>
 
-<div id='<?=$div_name;?>_contentdiv' style="display:inline-block;" ><?=implode("<br/>", $ary_entries);?>
-</div><textarea style='display:none;' id='<?=$div_name;?>_contentinput' rows=<?=count($ary_entries);?>>
+<div id='<?=$div_name;?>_itemsdiv' style="display:inline-block;" ><?=implode("<br/>", $ary_entries);?>
+</div><textarea style='display:none;' id='<?=$div_name;?>_itemsinput' rows=<?=count($ary_entries);?>>
 <?=implode("\n", $ary_entries);?>
 </textarea>
 <div id='<?=$div_name;?>_submitChange' style="display:none;" >
@@ -164,7 +164,7 @@ Are you sure to delete?
 
 <div id='div_addMenu' style='display:none;'><strong>Menu name: 
 </strong><input id='div_addMenu_nameinput' type='input' value=''/><br/>
-<textarea id='div_addMenu_contentinput' rows='10'></textarea><br/>
+<textarea id='div_addMenu_itemsinput' rows='10'></textarea><br/>
 <input type=button value='Submit' onClick='onAddSubmit("div_addMenu")' />
 <input type=button value='Cancel' onClick='onAddCancel("div_addMenu")' /></div>
 </div>

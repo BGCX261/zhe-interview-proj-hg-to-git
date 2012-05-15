@@ -2,8 +2,8 @@
 
 class Dropdownmenu_model extends CI_Model {
 
-    var $items   = '';
-    var $content = '';
+    var $menu_name   = '';
+    var $menu_item = '';
 
     function __construct()
     {
@@ -12,31 +12,31 @@ class Dropdownmenu_model extends CI_Model {
     
     function get_entries()
     {
-        $query = $this->db->get('entries');
+        $query = $this->db->get('selectmenus');
         return $query->result();
     }
 
     function insert_entry()
     {
-        $this->items   = $this->input->post('items'); // please read the below note
-        $this->content = $this->input->post('content');
+        $this->menu_name   = $this->input->post('menu_name'); // please read the below note
+        $this->menu_item = $this->input->post('menu_item');
 
-        $result = $this->db->insert('entries', $this);
+        $result = $this->db->insert('selectmenus', $this);
 		return $result;
     }
 	
     function update_entry()
     {
-        $this->items   = $this->input->post('items');
-        $this->content = $this->input->post('content');
+        $this->menu_name   = $this->input->post('menu_name');
+        $this->menu_item = $this->input->post('menu_item');
 
-        $result = $this->db->update('entries', $this, array('id' => $this->input->post('id')));
+        $result = $this->db->update('selectmenus', $this, array('id' => $this->input->post('id')));
 		return $result;
     }
 	
 	function delete_entry()
 	{
-		$result = $this->db->delete('entries', array('id' => $this->input->post('id')));
+		$result = $this->db->delete('selectmenus', array('id' => $this->input->post('id')));
 		return $result;
 	}
 }

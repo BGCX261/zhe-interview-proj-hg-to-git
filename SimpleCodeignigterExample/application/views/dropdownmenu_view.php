@@ -23,9 +23,9 @@
 <?php 
 	foreach ($entries as $entry) {
 		# echo $entry->id;
-		$select_body = "<p>" . $entry->items . "<select onmouseout='toggleSelectBox(this)' onmouseover='toggleSelectBox(this)'>";
+		$select_body = "<p>" . $entry->menu_name . "<select onmouseout='toggleSelectBox(this)' onmouseover='toggleSelectBox(this)'>";
 		
-			foreach (explode("|", $entry->content) as $cont) {
+			foreach (explode("|", $entry->menu_item) as $cont) {
 				$ary_keypair = explode(";", $cont);
 				if(count($ary_keypair)>1) {
 					list($msg, $value) = $ary_keypair;
