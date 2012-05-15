@@ -22,12 +22,13 @@
 		}
 		
 		function onSubmit(divName){
+			
 			new Ajax.Request('/SimpleCodeignigterExample/managemenu/update',{
 				method: 'post',
 				parameters: {
 					'id': $(divName+'_id').value,
 					'menu_name': $(divName+'_nameinput').value,
-					'menu_item':$(divName+'_itemsinput').value.replace(/\n/g,"|")
+					'menu_item': $(divName+'_itemsinput').value//.replace(/\n/g,"|")
 				}, 
 				onSuccess: function(transport) {
 					if(transport.responseText == '1') {
@@ -74,11 +75,11 @@
 					if(transport.responseText == '1') {
 						$(divName).parentNode.removeChild($(divName));
 					} else {
-						alert('Failed to delete entry!!');
+						alert('Failed to delete menu!!');
 					}
 				}, 
 				onFailure: function() {
-					alert('Failed to delete entry!!');
+					alert('Failed to delete menu!!');
 				}
 			});
 		}
@@ -100,7 +101,7 @@
 				method: 'post',
 				parameters: {
 					'menu_name': $(divName+'_nameinput').value,
-					'menu_item': $(divName+'_itemsinput').value.replace(/\n/g,"|")
+					'menu_item': $(divName+'_itemsinput')//.value.replace(/\n/g,"|")
 				}, 
 				onSuccess: function(transport) {
 					if(transport.responseText == '1') {
@@ -133,11 +134,11 @@
 <hr>
 
 <?php 
-	foreach ($entries as $entry) {
-		$div_name = "div_" . $entry->id;
-		$ary_entries = explode("|", $entry->menu_item);
+	foreach ($selectmenus as $menu) {
+		$div_name = "div_" . $menu->id;
+		$ary_entries = explode("\n", $menu->menu_item);
 ?>
-<div id='<?=$div_name;?>'><input id='<?=$div_name;?>_id' type='hidden' value='<?=$entry->id;?>'/><strong>Menu name: <div style="display:inline" id='<?=$div_name;?>_namediv'><?=$entry->menu_name;?></div><input id='<?=$div_name;?>_nameinput' type='hidden' value='<?=$entry->menu_name;?>'/>
+<div id='<?=$div_name;?>'><input id='<?=$div_name;?>_id' type='hidden' value='<?=$menu->id;?>'/><strong>Menu name: <div style="display:inline" id='<?=$div_name;?>_namediv'><?=$menu->menu_name;?></div><input id='<?=$div_name;?>_nameinput' type='hidden' value='<?=$menu->menu_name;?>'/>
 </strong><br/>
 
 <div id='<?=$div_name;?>_itemsdiv' style="display:inline-block;" ><?=implode("<br/>", $ary_entries);?>

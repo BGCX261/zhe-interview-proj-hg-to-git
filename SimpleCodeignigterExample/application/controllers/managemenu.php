@@ -9,7 +9,7 @@ class Managemenu extends CI_Controller {
 
 	public function index()
 	{
-		$data['entries'] = $this->dropdownmenu_model->get_entries();
+		$data['selectmenus'] = $this->dropdownmenu_model->get_entries();
 		$this->load->view('managemenu_view', $data);
 	}
 	

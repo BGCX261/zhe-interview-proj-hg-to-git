@@ -21,12 +21,12 @@
 <body>
 <h1>Project 1</h1>
 <?php 
-	foreach ($entries as $entry) {
+	foreach ($selectmenus as $menu) {
 		# echo $entry->id;
-		$select_body = "<p>" . $entry->menu_name . "<select onmouseout='toggleSelectBox(this)' onmouseover='toggleSelectBox(this)'>";
+		$select_body = "<p>" . $menu->menu_name . "<select onmouseout='toggleSelectBox(this)' onmouseover='toggleSelectBox(this)'>";
 		
-			foreach (explode("|", $entry->menu_item) as $cont) {
-				$ary_keypair = explode(";", $cont);
+			foreach ($menu->menu_item as $item) {
+				$ary_keypair = explode(";", $item);
 				if(count($ary_keypair)>1) {
 					list($msg, $value) = $ary_keypair;
 				} else {

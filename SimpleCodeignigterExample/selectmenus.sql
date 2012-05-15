@@ -11,5 +11,5 @@ CREATE TABLE `selectmenus` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `selectmenus` VALUES (1, 'Size', 'Extralarge;XL|Large;L|Medium;M|Small;S');
-INSERT INTO `selectmenus` VALUES (2, 'Color', 'White;#FFF|Black;#000|Red;#F00');
+INSERT INTO `selectmenus` VALUES (1, 'Size', 'Extralarge;XL\nLarge;L\nMedium;M\nSmall;S');
+INSERT INTO `selectmenus` VALUES (2, 'Color', 'White;#FFF\nBlack;#000\nRed;#F00');
