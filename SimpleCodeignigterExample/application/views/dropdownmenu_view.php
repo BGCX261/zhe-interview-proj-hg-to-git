@@ -26,7 +26,13 @@
 		$select_body = "<p>" . $entry->items . "<select onmouseout='toggleSelectBox(this)' onmouseover='toggleSelectBox(this)'>";
 		
 			foreach (explode("|", $entry->content) as $cont) {
-				list($msg, $value) = explode(";", $cont);
+				$ary_keypair = explode(";", $cont);
+				if(count($ary_keypair)>1) {
+					list($msg, $value) = $ary_keypair;
+				} else {
+					$msg = $value = $ary_keypair[0];
+				}
+				if($value == '') {$value = $msg;}
 				$select_body .= "<option value='" . $value . "'>";
 				$select_body .= $msg;
 				$select_body .= "</option>";
@@ -38,7 +44,7 @@
 ?>
 
 <!--p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p-->
-
+<hr>
 <a href="/SimpleCodeignigterExample/managemenu">Manage Menus</a>
 
 </body>
