@@ -1,0 +1,24 @@
+/* CSS file */  
+.appDigiSign {
+   color: #FFFFFF;   
+   backgroundColor: #FFFFFF;
+   fontFamily: 微軟正黑體, msjh, Arial, Helvetica, "_sans";
+}
+
+.container, .newsView {
+   color: #FFFFFF;   
+   backgroundColor: #000000;
+   fontFamily: 微軟正黑體, msjh, Arial, Helvetica, "_sans";
+}
+
+.newsItem {
+	fontSize: 24pt;
+}
+
+.dateLabel {
+	fontSize: 48pt;
+}
+
+.timeLabel {
+	fontSize: 48pt;
+}

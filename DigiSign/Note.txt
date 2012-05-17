@@ -1,0 +1,4 @@
+Windows with Chrome
+command: chrome.exe -kiosk url
+
+Windows with AIR

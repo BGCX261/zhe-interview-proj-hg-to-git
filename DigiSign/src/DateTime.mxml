@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   width="100%" height="100%"
+				   creationComplete="completeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			private var dateNow:Date;
+			
+			private function completeHandler(event:Event):void
+			{
+				var tmrDate:Timer = new Timer(500);
+				tmrDate.addEventListener(TimerEvent.TIMER, tmrDate_timerHandler);
+				tmrDate.start();
+			}
+			
+			private function tmrDate_timerHandler(event:TimerEvent):void
+			{
+				
+				dateNow = new Date();
+				var year: String = dateNow.fullYear.toString();
+				var month:String = dateNow.month.toString();
+				var day:  String = dateNow.day.toString();
+				lblDate.text = year + '/' + month + '/' + day;
+				
+				var hour:String = dateNow.hours.toString();
+				var min: String = dateNow.minutes.toString();
+				var sec: String = dateNow.seconds.toString();
+				lblTime.text = hour + ':' + min + ':' + sec;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Group horizontalCenter="0" verticalCenter="0">
+		<s:VGroup>
+			<s:Label id="lblDate" styleName="dateLabel"/>
+			<s:Label id="lblTime" styleName="timeLabel"/>
+		</s:VGroup>
+	</s:Group>
+</s:BorderContainer>

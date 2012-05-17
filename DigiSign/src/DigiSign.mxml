@@ -1,19 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
-					   xmlns:s="library://ns.adobe.com/flex/spark" 
-					   xmlns:mx="library://ns.adobe.com/flex/mx">
-	
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   showStatusBar="false" styleName="appDigiSign"
+					   applicationComplete="digiSign_applicationCompleteHandler()" xmlns:local="*">
+	<fx:Style source="css/digiSign.css" />  
 	<fx:Script>
 		<![CDATA[
-			protected function button1_clickHandler(event:MouseEvent):void
+			protected function digiSign_applicationCompleteHandler():void
 			{
-				// TODO Auto-generated method stub
+				/*
+				//Set Window Size to Maximize
+				nativeWindow.x = 0; nativeWindow.y = 0;
+				nativeWindow.width = Capabilities.screenResolutionX;
+				nativeWindow.height = Capabilities.screenResolutionY - 34;
+				stage.nativeWindow.maximize();
+				
+				//Set DisplayStage to Full Screen 
+				//PS. StageDisplayState.FULL_SCREEN_INTERACTIVE - Interactive
+				stage.displayState = StageDisplayState.FULL_SCREEN;
+				stage.addEventListener(KeyboardEvent.KEY_DOWN, app_keyDownHandler);
+				stage.addEventListener(FullScreenEvent.FULL_SCREEN, app_fullscreenHandler);
+				*/
 			}
+			
+			// Prevent Key ESC to exit Full Screen
+			protected function app_keyDownHandler(event:KeyboardEvent):void 
+			{	
+				if(event.keyCode == 27) {
+					event.preventDefault();
+				}
+			}
+			
+			// Set DisplayStage to Full Screen if exit FullScreen Stage
+			protected function app_fullscreenHandler(event:FullScreenEvent):void
+			{
+				if(stage.displayState != StageDisplayState.FULL_SCREEN)
+					stage.displayState = StageDisplayState.FULL_SCREEN;
+			}
+			
+
 		]]>
 	</fx:Script>
-	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button x="10" y="11" label="Button" click="button1_clickHandler(event)"/>
+	<s:HGroup width="100%" height="100%">
+		<s:VGroup width="75%" height="100%" chromeColor="#000000" contentBackgroundColor="#000000">
+			<s:BorderContainer width="100%" height="100%" styleName="container">
+			</s:BorderContainer>
+			<local:NewsReader styleName="container"/>
+		</s:VGroup>
+		<s:VGroup width="25%" height="100%">
+			<local:WeatherReader styleName="container" />
+			<s:BorderContainer width="100%" height="100%" styleName="container">
+			</s:BorderContainer>
+			<local:DateTime styleName="container" />
+		</s:VGroup>
+	</s:HGroup>
 </s:WindowedApplication>

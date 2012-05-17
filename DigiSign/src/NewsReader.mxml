@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   width="100%" height="100"
+				   creationComplete="completeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Label;
+			import spark.effects.Move;
+			
+			private static const NEWS_RSS_URL:String = "http://tw.news.yahoo.com/rss/";
+			private var aryItems:Array = new Array;
+			private var tmrChangeItem:Timer = new Timer(2000);
+			
+			private function completeHandler(event:Event):void
+			{
+				var urlLoader:URLLoader = new URLLoader();
+				var urlRequest:URLRequest = new URLRequest(NEWS_RSS_URL);
+				urlRequest.method = URLRequestMethod.GET;
+				
+				urlLoader.addEventListener(Event.COMPLETE, urlLoader_completeHandler);
+				urlLoader.addEventListener(IOErrorEvent.IO_ERROR, urlLoader_IOErrorHandler);
+				urlLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, urlLoader_SecurityErrorHandler);
+				urlLoader.load(urlRequest);
+				
+				moveOut.yFrom = moveIn.yTo = (this.height - lblItem.height) / 2;
+				moveOut.yTo = 0 - lblItem.height;
+				moveIn.yFrom = this.height + lblItem.height;
+			}
+			
+			private function urlLoader_completeHandler(event:Event):void
+			{
+				var rawRSS:String = URLLoader(event.target).data;
+				parseRSS(rawRSS);
+			}
+			
+			private function urlLoader_IOErrorHandler(event:IOErrorEvent):void {
+				lblItem.text = 'Load error!';
+			}
+			
+			private function urlLoader_SecurityErrorHandler(event:SecurityErrorEvent):void {
+				lblItem.text = 'Load error!';
+			}
+			
+			private function parseRSS(data:String):void
+			{
+				try {
+					var xmlData:XML = new XML(data);
+				}
+				catch (err:Error)
+				{
+					lblItem.text = 'Load error!';
+				}
+				
+				if(xmlData) {
+					var items:XMLList = xmlData.channel.item;
+					for each(var item:XML in items)
+					{
+						aryItems.push(item.title);
+					}
+					
+					moveIn.play();
+					lblItem.text = getItem();
+						
+					tmrChangeItem.addEventListener(TimerEvent.TIMER, tmrChangeItem_timerHandler);
+					tmrChangeItem.start();
+				}
+			}
+			
+			private function getItem():String {
+				if(!aryItems || aryItems.length <= 0) return '';
+				
+				var nextItem:String = aryItems.shift()
+				aryItems.push(nextItem);
+				return nextItem;
+			}
+			
+			private function tmrChangeItem_timerHandler(event:TimerEvent):void
+			{
+				moveOut.play();
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Bounce id="bounceEasing"/>
+		<s:Linear id="linearEasing"/>
+		<s:Move id="moveOut" duration="200"
+				easer="{linearEasing}" effectEnd="{moveIn.play();lblItem.text = getItem();}"
+				target="{lblItem}"/>
+		<s:Move id="moveIn" duration="500"
+				easer="{linearEasing}" effectEnd="{}"
+				target="{lblItem}"/>
+	</fx:Declarations>
+	<s:Group id="newsView" styleName="newsView" clipAndEnableScrolling="true"
+					   x="0" y="0" width="100%" height="100%">
+		<s:Label id="lblItem" x="20" styleName="newsItem"/>
+	</s:Group>
+</s:BorderContainer>

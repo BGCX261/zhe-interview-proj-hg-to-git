@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   width="100%" height="100%"
+				   creationComplete="completeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import org.osmf.elements.HTMLElement;
+			
+			import spark.components.Label;
+			import spark.components.TextArea;
+			import spark.effects.Move;
+			
+			//private static const WEATHER_RSS_URL:String = "http://www.rssweather.com/wx/tw/taipei/rss.php";
+			private static const WEATHER_RSS_URL:String = "http://weather.msn.com/RSS.aspx?wealocations=wc:TWXX0021&weadegreetype=C";
+			
+			private function completeHandler(event:Event):void
+			{
+				var urlLoader:URLLoader = new URLLoader();
+				var urlRequest:URLRequest = new URLRequest(WEATHER_RSS_URL);
+				urlRequest.method = URLRequestMethod.GET;
+				
+				urlLoader.addEventListener(Event.COMPLETE, urlLoader_completeHandler);
+				urlLoader.addEventListener(IOErrorEvent.IO_ERROR, urlLoader_IOErrorHandler);
+				urlLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, urlLoader_SecurityErrorHandler);
+				urlLoader.load(urlRequest);
+			}
+			
+			private function urlLoader_completeHandler(event:Event):void
+			{
+				var rawRSS:String = URLLoader(event.target).data;
+				parseRSS(rawRSS);
+			}
+			
+			private function urlLoader_IOErrorHandler(event:IOErrorEvent):void {
+				lblWeatherText.text = 'Load error!';
+			}
+			
+			private function urlLoader_SecurityErrorHandler(event:SecurityErrorEvent):void {
+				lblWeatherText.text = 'Load error!';
+			}
+			
+			private function parseRSS(data:String):void
+			{
+				try {
+					var xmlData:XML = new XML(data);
+				}
+				catch (err:Error)
+				{
+					lblWeatherText.text = 'Load error!';
+				}
+				
+				if(xmlData) {
+					var strWeather:String = xmlData.channel.item.description[0].toString();
+					var aryWeather:Array = strWeather.match(/<img src="([^"]+)"[^>]+>[^>]+>([^.]+\.)/);
+					lblWeatherText.text = aryWeather[2];
+					imgWeather.source = aryWeather[1];
+				}
+			}
+			
+			private function imgWeather_completeHandler(event:Event):void
+			{
+				imgWeather.scaleX = imgWeather.scaleY = width / 3 / imgWeather.bitmapData.width;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Group horizontalCenter="0" verticalCenter="0">
+		<s:VGroup horizontalAlign="center">
+			<s:Image id="imgWeather" complete="imgWeather_completeHandler(event)"/>
+			<s:Label id="lblWeatherText"/>
+		</s:VGroup>
+	</s:Group>
+</s:BorderContainer>

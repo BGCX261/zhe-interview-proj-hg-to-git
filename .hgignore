@@ -4,7 +4,6 @@ syntax: glob
 #*.pyc
 #*~
 bin-debug
-bin-release
 reference
 phpMyAdmin
 phpinfo.php
