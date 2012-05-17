@@ -3,6 +3,8 @@ syntax: glob
 #*.elc
 #*.pyc
 #*~
+bin-debug
+bin-release
 reference
 phpMyAdmin
 phpinfo.php
