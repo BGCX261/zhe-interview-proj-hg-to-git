@@ -14,6 +14,7 @@
 | path to your installation.
 |
 */
+#$config['base_url']	= 'http://localhost:4141/SimpleCodeignigterExample/';
 $config['base_url']	= 'http://zhep.zxq.net/SimpleCodeignigterExample/';
 
 /*
