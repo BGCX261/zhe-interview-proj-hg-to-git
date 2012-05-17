@@ -47,8 +47,7 @@
 	</fx:Declarations>
 	<s:HGroup width="100%" height="100%">
 		<s:VGroup width="75%" height="100%" chromeColor="#000000" contentBackgroundColor="#000000">
-			<s:BorderContainer width="100%" height="100%" styleName="container">
-			</s:BorderContainer>
+			<local:VideoImageBlock styleName="container"/>
 			<local:NewsReader styleName="container"/>
 		</s:VGroup>
 		<s:VGroup width="25%" height="100%">
