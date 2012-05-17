@@ -6,16 +6,101 @@
 				   creationComplete="completeHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import org.osmf.events.TimeEvent;
+			
+			import spark.components.Image;
+			import spark.components.VideoDisplay;
+			private static const IMAGE_URL:String = "http://www.sodao.com/app/ShowTime/gt1?pcs_id=1&size=1&rnd=";
+			private static const VIDEO_URL:String = "http://blog.minidx.com/ext/getting-started-with-the-videodisplay-control/clouds.flv";
+			
+			
+			private var tmrTimer:Timer = new Timer(5000);
+			private var tmrTimeout:Timer = new Timer(10000);
+			
+			private var imgBlock:Image;
+			private var videoBlock:VideoDisplay;
+			
+			private var urlLoader:URLLoader;
+			private var urlResquest:URLRequest;
+			
 			private function completeHandler(event:Event):void
 			{
-				videoBlock.source = "http://blog.minidx.com/ext/getting-started-with-the-videodisplay-control/clouds.flv";
+				tmrTimer.addEventListener(TimerEvent.TIMER, tmrTimer_TimerHandler);
+
+				loadImage();
+			}
+			
+			private function tmrTimer_TimerHandler(event:TimerEvent):void
+			{
+				tmrTimer.stop();
+				loadVideo();
+			}
+			
+			private function loadImage():void 
+			{
+				urlLoader = new URLLoader();
+				urlResquest = new URLRequest(IMAGE_URL + Math.random());
+				urlLoader.addEventListener(Event.COMPLETE, urlLoader_completeHandler);
+				urlLoader.load(urlResquest);
+				tmrTimer.start();
+			}
+			
+			private function urlLoader_completeHandler(event:Event):void
+			{
+				var imgSource:String = String(URLLoader(event.target).data).match(/"path":"([^"]+)"/)[1];
+				var newImage:Image = new Image();
+				newImage.addEventListener(Event.COMPLETE, newImage_completeHandler);
+				newImage.source = imgSource;
+				newImage.percentHeight = newImage.percentWidth = 100;
+				videoView.addElementAt(newImage, 0);
+				
+				tmrTimeout.addEventListener(TimerEvent.TIMER, tmrTimeout_TimerHandaler);
+				tmrTimeout.start();
+			}
+			
+			private function newImage_completeHandler(event:Event):void
+			{
+				tmrTimeout.stop();
+				removeOtherElements();
+			}
+			
+			private function tmrTimeout_TimerHandaler(event:TimerEvent):void
+			{
+				tmrTimeout.stop();
+				//loadImage();
+				loadVideo();
+			}
+			
+			private function removeOtherElements():void
+			{
+				for(var ec:int = 0; ec < videoView.numElements - 1; ec++){
+					trace('for loop:' + ec);
+					videoView.removeElementAt(1);
+				}
+			}
+			
+			private function loadVideo():void
+			{
+				var videoBlock:VideoDisplay = new VideoDisplay;
+				videoBlock.percentHeight = videoBlock.percentWidth = 100;
+				videoView.addElementAt(videoBlock, 0);
+				removeOtherElements();
+				videoBlock.source = VIDEO_URL;
 				videoBlock.play();
+				
+				videoBlock.addEventListener(TimeEvent.COMPLETE, videoBlock_timeCompleteHandler);
+			}
+			
+			private function videoBlock_timeCompleteHandler(event:TimeEvent):void
+			{
+				VideoDisplay(event.target).removeEventListener(TimeEvent.COMPLETE, videoBlock_timeCompleteHandler);
+				
+				loadImage();
 			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:VideoDisplay id="videoBlock" width="100%" height="100%"/>
-	<s:Image id="imgBlock" width="100%" height="100%"/>
+	<s:Group id="videoView" width="100%" height="100%" />
 </s:BorderContainer>
