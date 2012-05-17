@@ -11,8 +11,8 @@
 			import spark.components.Image;
 			import spark.components.VideoDisplay;
 			private static const IMAGE_URL:String = "http://www.sodao.com/app/ShowTime/gt1?pcs_id=1&size=1&rnd=";
-			private static const VIDEO_URL:String = "http://blog.minidx.com/ext/getting-started-with-the-videodisplay-control/clouds.flv";
-			
+			//private static const VIDEO_URL:String = "http://blog.minidx.com/ext/getting-started-with-the-videodisplay-control/clouds.flv";
+			private static const VIDEO_URL:String = "http://zhep.zxq.net/flv/NoOneLikeYou.flv";
 			
 			private var tmrTimer:Timer = new Timer(5000);
 			private var tmrTimeout:Timer = new Timer(10000);
@@ -26,7 +26,6 @@
 			private function completeHandler(event:Event):void
 			{
 				tmrTimer.addEventListener(TimerEvent.TIMER, tmrTimer_TimerHandler);
-
 				loadImage();
 			}
 			
@@ -41,8 +40,9 @@
 				urlLoader = new URLLoader();
 				urlResquest = new URLRequest(IMAGE_URL + Math.random());
 				urlLoader.addEventListener(Event.COMPLETE, urlLoader_completeHandler);
+				urlLoader.addEventListener(IOErrorEvent.IO_ERROR, urlLoader_IOErrorHandler);
+				//urlLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, urlLoader_SecurityErrorHandler);
 				urlLoader.load(urlResquest);
-				tmrTimer.start();
 			}
 			
 			private function urlLoader_completeHandler(event:Event):void
@@ -58,10 +58,16 @@
 				tmrTimeout.start();
 			}
 			
+			private function urlLoader_IOErrorHandler(event:IOErrorEvent):void
+			{
+				loadVideo();
+			}
+			
 			private function newImage_completeHandler(event:Event):void
 			{
 				tmrTimeout.stop();
 				removeOtherElements();
+				tmrTimer.start();
 			}
 			
 			private function tmrTimeout_TimerHandaler(event:TimerEvent):void
@@ -74,7 +80,6 @@
 			private function removeOtherElements():void
 			{
 				for(var ec:int = 0; ec < videoView.numElements - 1; ec++){
-					trace('for loop:' + ec);
 					videoView.removeElementAt(1);
 				}
 			}
@@ -94,7 +99,7 @@
 			private function videoBlock_timeCompleteHandler(event:TimeEvent):void
 			{
 				VideoDisplay(event.target).removeEventListener(TimeEvent.COMPLETE, videoBlock_timeCompleteHandler);
-				
+				videoView.removeAllElements();
 				loadImage();
 			}
 		]]>
