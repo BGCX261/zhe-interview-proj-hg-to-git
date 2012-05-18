@@ -23,7 +23,7 @@
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
     <buildTarget buildTargetName="default">
-      <airSettings airCertificatePath="D:/Zhezhe/DigiSign/Sign.p12" airTimestamp="true" anePathSet="true" version="1">
+      <airSettings airCertificatePath="G:/Zhezhe/DigiSign/Sign.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
         <anePaths/>
       </airSettings>
@@ -31,4 +31,3 @@
     </buildTarget>
   </buildTargets>
 </actionScriptProperties>
-

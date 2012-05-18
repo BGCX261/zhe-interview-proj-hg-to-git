@@ -9,7 +9,6 @@
 		<![CDATA[
 			protected function digiSign_applicationCompleteHandler():void
 			{
-				
 				//Set Window Size to Maximize
 				nativeWindow.x = 0; nativeWindow.y = 0;
 				nativeWindow.width = Capabilities.screenResolutionX;
@@ -21,7 +20,6 @@
 				stage.displayState = StageDisplayState.FULL_SCREEN;
 				stage.addEventListener(KeyboardEvent.KEY_DOWN, app_keyDownHandler);
 				stage.addEventListener(FullScreenEvent.FULL_SCREEN, app_fullscreenHandler);
-				
 			}
 			
 			// Prevent Key ESC to exit Full Screen
