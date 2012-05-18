@@ -25,8 +25,8 @@
 				lblDate.text = year + '/' + month + '/' + day;
 				
 				var hour:String = dateNow.hours.toString();
-				var min: String = dateNow.minutes.toString();
-				var sec: String = dateNow.seconds.toString();
+				var min: String = (dateNow.minutes < 10 ? '0': '') + dateNow.minutes.toString();
+				var sec: String = (dateNow.seconds < 10 ? '0': '') + dateNow.seconds.toString();
 				lblTime.text = hour + ':' + min + ':' + sec;
 			}
 		]]>
